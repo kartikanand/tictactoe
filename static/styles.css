@@ -1,0 +1,121 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+* {
+  box-sizing: border-box; }
+
+html,
+body {
+  font-size: 100%;
+  font-family: 'Lato', sans-serif;
+  background-color: #fff;
+  color: #333;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative; }
+
+.wrapper {
+  min-height: 100%;
+  position: relative;
+  padding: 25px; }
+
+header {
+  margin-bottom: 25px; }
+
+section {
+  margin-bottom: 50px; }
+
+footer {
+  height: 50px;
+  color: #333;
+  background-color: #222;
+  position: absolute;
+  width: 100%;
+  padding: 1em;
+  bottom: 0;
+  left: 0;
+  text-align: center; }
+  footer small {
+    font-size: 75%; }
+
+h1 {
+  font-size: 175%;
+  margin-bottom: 12px; }
+
+h2 {
+  font-size: 150%; }
+
+a {
+  color: #c0392b;
+  text-decoration: none; }
+  a:hover {
+    color: #f36c5e; }
+
+.controls {
+  border: 1px solid #333;
+  padding: 1em;
+  border-radius: 1em; }
+
+.row {
+  margin: 1em;
+  margin-top: 0px;
+  margin-bottom: 0px; }
+
+.col {
+  display: inline-block;
+  width: 5em;
+  height: 5em;
+  border: solid 1px black;
+  vertical-align: middle;
+  margin: 0em;
+  line-height: 5em; }
+
+.center {
+  margin-left: auto;
+  margin-right: auto; }
+
+.text-center {
+  text-align: center; }
+
+/*# sourceMappingURL=styles.css.map */
