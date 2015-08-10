@@ -1,93 +1,84 @@
-
-
-function resetGlobals (argument) {
-    var board;
+// Globals
+var board = null;
 var finish = false;
-var count = 0;
-}
-
-function makeMoveOnPage (move, mark) {
-    var x = move[0],
-        y = move[1];
-
-    var id = "col"+x+y;
-    console.log(id);
-    console.log(mark);
-    var obj = document.getElementById(id);
-    console.log(obj);    
-    obj.textContent = mark;
-}
+var moveCount = 0;
 
 window.onload = function () {
-    board = initBoard();
+    resetBoard();
 
     document.getElementById('play-again').addEventListener("click", function (event) {
         event.preventDefault();
-
-        board = initBoard();
-        initBoardOnPage();
+        resetBoard();
     }, false);
-    var cols = document.getElementsByClassName("col");
-    for (var i=0; i<cols.length; i++) {
-        cols[i].addEventListener("click", markBox, false);
-        cols[i].textContent = '';
-    }
+
+    var colArray = Array.prototype.slice.call(document.getElementsByClassName('col')).forEach(function (col) {
+        col.addEventListener("click", function (event) {
+            event.preventDefault();
+            if (finish)
+                return;
+
+            var box = document.getElementById(this.id);
+            if (box.textContent) {
+                alert ("This box is already filed. Try another one!");
+            }
+            else {
+                moveCount++;
+                move_t = getMoveFromBoxId(this.id);
+                makeMove(board, move_t, 'O', false);
+                
+                if (getIsWin(board, 'O')) {
+                    alert("Winner is user");
+                }
+                else if (moveCount == 9) {
+                    alert("Draw");
+                }
+                else {
+                    makeOpponentMove();
+                }
+            }
+        }, false);
+    });
+
 };
 
-function initBoardOnPage () {
-    var cols = document.getElementsByClassName("col");
-    for (var i=0; i<cols.length; i++) {
-        cols[i].textContent = '';
-    }
+function resetBoard () {
+    var colArray = Array.prototype.slice.call(document.getElementsByClassName('col')).forEach(function (col) {
+        col.textContent = '';
+    });
+
+    board = initBoard();
+    finish = false;
+    moveCount = 0;
 }
 
-function markBox() {
-    if (finish) {
-        return;
-    }
+function makeMove(board, move, mark, fake) {
+    var x = move[0],
+        y = move[1];
 
-    var box = document.getElementById(this.id);
-    if (box.textContent) {
-        alert ("This box is already filed. Try another one!");
-    }
-    else {
-        count++;
-        move_t = getMoveFromBoxId(this.id);
-        makeMove(board, move_t, 'O');
-        makeMoveOnPage(move_t, 'O');
-        
-        if (getIsWin(board, 'O')) {
-            alert("Winner is user");
-        }
-        else if (count == 9) {
-            alert("Draw");
-        }
-        else {
-            makeOpponentMove();
-        }
-    }
+    board[x][y] = mark;
+
+    if(!fake)
+        document.getElementById("col"+x+y).textContent = mark;
 }
+
+
 
 function getMoveFromBoxId (id) {
     // Id is of the form colxy
-    var movex = parseInt(id[3]);
-    var movey = parseInt(id[4]);
-
-    return [movex, movey];
+    return [parseInt(id[3]), parseInt(id[4])];
 }
 
 function makeOpponentMove() {
-    count++;
+    moveCount++;
     temp_score_move_temp = getMaxMove(board, 'X');
     move_t = temp_score_move_temp[1];
-    makeMove(board, move_t, 'X');
-    makeMoveOnPage(move_t, 'X');
+    makeMove(board, move_t, 'X', false);
 
     if (getIsWin(board, 'X')) {
         alert("PC won");
         finish = true;
     }
-    else if (count == 9) {
+    else if (moveCount == 9) {
         alert("Draw");
     }
 }
@@ -106,7 +97,6 @@ function initBoard() {
 }
 
 function getIsWin(board, mark) {
-    //console.log("getIsWin");
     var win = null;
     var x, y;
 
@@ -119,9 +109,8 @@ function getIsWin(board, mark) {
             }
         }
 
-        if (win) {
+        if (win)
             return true;
-        }
     }
 
     for (y=0; y<3; y++) {
@@ -133,24 +122,20 @@ function getIsWin(board, mark) {
             }
         }
 
-        if (win) {
+        if (win)
             return true;
-        }
     }
 
-    if (board[0][0] == mark && board[1][1] == mark && board[2][2] == mark) {
+    if (board[0][0] == mark && board[1][1] == mark && board[2][2] == mark)
         return true;
-    }
 
-    if (board[2][0] == mark && board[1][1] == mark && board[0][2] == mark) {
+    if (board[2][0] == mark && board[1][1] == mark && board[0][2] == mark)
         return true;
-    }
 
     return false;
 }
     
 function getCopy(board) {
-    //console.log("getCopy");
     var l = initBoard();
     for (var x=0; x<3; x++) {
         for (var y=0; y<3; y++) {
@@ -162,7 +147,6 @@ function getCopy(board) {
 }
 
 function getMoveList(board) {
-    //console.log("getMoveList");
     var move_list = [];
     for (var x=0; x<3; x++) {
         for (var y=0; y<3; y++) {
@@ -175,26 +159,14 @@ function getMoveList(board) {
     return move_list;
 }
 
-function makeMove(board, move, mark) {
-    //console.log("makeMove");
-    var x = move[0],
-        y = move[1];
-
-    board[x][y] = mark;
-}
-
 function flip(mark) {
-    //console.log("flip");
-    if (mark == 'X') {
+    if (mark == 'X')
         return 'O';
-    }
-    else {
-        return 'X';
-    }
+    
+    return 'X';
 }
 
 function boardIsFull(board) {
-    //console.log("boardisfull");
     for (var x=0; x<3; x++) {
         for (var y=0; y<3; y++) {
             if (board[x][y] == '0') {
@@ -207,7 +179,6 @@ function boardIsFull(board) {
 }
 
 function getMinMove(board, mark) {
-    //console.log("getMinMove");
     var move_list = getMoveList(board);
 
     var move_score = 1;
@@ -216,7 +187,7 @@ function getMinMove(board, mark) {
     for (var i=0; i<move_list.length; i++) {
         var move = move_list[i];
         var copy_board = getCopy(board);
-        makeMove(copy_board, move, mark);
+        makeMove(copy_board, move, mark, true);
 
         if (getIsWin(copy_board, mark)) {
             move_score = -1;
@@ -241,7 +212,6 @@ function getMinMove(board, mark) {
 }
 
 function getMaxMove(board, mark) {
-    //console.log("getMaxMove");
     var move_list = getMoveList(board);
     
     var win_move = null;
@@ -249,7 +219,7 @@ function getMaxMove(board, mark) {
     for (var i=0; i<move_list.length; i++) {
         var move = move_list[i];
         var copy_board = getCopy(board);
-        makeMove(copy_board, move, mark);
+        makeMove(copy_board, move, mark, true);
 
         if (getIsWin(copy_board, mark)) {
             move_score = 1;
