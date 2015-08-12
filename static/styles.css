@@ -112,7 +112,8 @@ a {
   height: 5em;
   vertical-align: middle;
   margin: 0em;
-  line-height: 5em; }
+  line-height: 5em;
+  cursor: pointer; }
   .col:nth-child(1), .col:nth-child(2) {
     border-right: solid 3px #555; }
 
