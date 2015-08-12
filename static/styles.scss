@@ -54,7 +54,7 @@ footer {
 
 h1 {
     font-size: 175%;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 h2 {
@@ -74,22 +74,34 @@ a {
     border: 1px solid #333;
     padding: 1em;
     border-radius: 1em;
+    background-color: #333;
+    color: white;
 }
 
 .row {
     margin: 1em;
     margin-top: 0px;
     margin-bottom: 0px;
+    &:nth-child(1),
+    &:nth-child(2) {
+        .col {
+            border-bottom: solid 3px #555;
+        }
+    }
 }
 
 .col {
     display: inline-block;
     width: 5em;
     height: 5em;
-    border: solid 1px black;
     vertical-align: middle;
     margin: 0em;
     line-height: 5em;
+
+    &:nth-child(1),
+    &:nth-child(2) {
+        border-right: solid 3px #555;
+    }
 }
 
 .center {
