@@ -26,7 +26,7 @@ module.exports = function(grunt) {
                 livereload: true,
             },
             dist: {
-                files: ['static/main.js', 'static/styles.scss'],
+                files: ['static/main.js', 'static/styles.scss', 'index.html'],
                 tasks: ['sass', 'cssmin', 'uglify']
             }
         }
