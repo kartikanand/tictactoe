@@ -2,7 +2,7 @@
 A simple implementation of Minimax algorithm for getting the best possible move in Tic Tac Toe.
 
 ### View Demo at
-[TicTacToe](http://www.kartikanand.com/TicTacToe)
+[TicTacToe](http://www.kartikanand.com/tictactoe)
 
 ### Description
 From [Wikipedia:MiniMax](https://en.wikipedia.org/wiki/Minimax)
