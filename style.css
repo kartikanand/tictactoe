@@ -1,0 +1,203 @@
+:root {
+  color-scheme: light dark;
+
+  --bg: #f6f5f2;
+  --surface: #ffffff;
+  --text: #22232a;
+  --muted: #6b6d78;
+  --line: #d6d4cd;
+  --x: #d6432e;
+  --o: #1f6fb5;
+  --win: #e7f5e4;
+  --win-line: #2e8b3d;
+  --accent: #22232a;
+  --accent-text: #ffffff;
+  --focus: #1f6fb5;
+
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --cell: clamp(5rem, 28vmin, 8.5rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14151a;
+    --surface: #1e2027;
+    --text: #ececf1;
+    --muted: #9a9cab;
+    --line: #3a3d49;
+    --x: #ff7a66;
+    --o: #6cb4ff;
+    --win: #1d3322;
+    --win-line: #5fcf75;
+    --accent: #ececf1;
+    --accent-text: #14151a;
+    --focus: #6cb4ff;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 6vw, 2.5rem);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+}
+
+/* Board */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, var(--cell));
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--line);
+  border-radius: 1rem;
+}
+
+.cell {
+  width: var(--cell);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 0.6rem;
+  background: var(--surface);
+  color: var(--text);
+  font: 700 calc(var(--cell) * 0.55)/1 var(--font);
+  cursor: pointer;
+  transition: background-color 0.15s;
+
+  &:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    z-index: 1;
+  }
+
+  &[data-mark="X"] { color: var(--x); }
+  &[data-mark="O"] { color: var(--o); }
+
+  /* Hover preview of the player's mark on empty cells */
+  &:not([data-mark], [aria-disabled="true"]):is(:hover, :focus-visible)::before {
+    content: "X";
+    color: var(--x);
+    opacity: 0.25;
+  }
+
+  &[data-mark], &[aria-disabled="true"] { cursor: default; }
+
+  &.win {
+    background: var(--win);
+    box-shadow: inset 0 0 0 3px var(--win-line);
+  }
+}
+
+/* Placed marks pop in */
+.mark {
+  display: block;
+  animation: pop 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes pop {
+  from { transform: scale(0.3); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* Winning cells pulse once */
+.cell.win .mark { animation: pop 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), pulse 0.6s 0.3s ease-in-out 2; }
+
+@keyframes pulse {
+  50% { transform: scale(1.18); }
+}
+
+/* Status and the "thinking" dots */
+.status {
+  min-height: 1.75rem;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.dots {
+  display: inline-flex;
+  gap: 0.3rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+
+  span {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--o);
+    animation: bounce 1s ease-in-out infinite;
+
+    &:nth-child(2) { animation-delay: 0.15s; }
+    &:nth-child(3) { animation-delay: 0.3s; }
+  }
+}
+
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-0.4rem); opacity: 1; }
+}
+
+/* Board dims slightly while the computer thinks */
+.board[data-thinking="true"] .cell:not([data-mark]) { opacity: 0.7; }
+
+.reset {
+  padding: 0.75rem 1.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font: 600 1rem var(--font);
+  cursor: pointer;
+  transition: transform 0.1s;
+
+  &:hover { transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
+  &:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+}
+
+footer {
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+
+  a { color: var(--muted); }
+  a:hover { color: var(--text); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .dots span { opacity: 1; }
+}

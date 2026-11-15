@@ -1,57 +1,43 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
-        <title>Tic Tac Toe</title>
-        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato" >
-        <link rel="stylesheet" type="text/css" href="static/styles.min.css">
-    </head>
-    <body>
-        <div class="wrapper">
-            <header>
-                <h1 class="text-center">Tic Tac Toe</h1>
-                <h2 class="text-center">MiniMax Algorithm</h2>
-            </header>
-            <div class="content">
-                <section class="board center">
-                    <div class="row text-center">
-                        <div class="col text-center" id="col00">
-                        </div><!-- 
-                        --><div class="col text-center" id="col01">
-                        </div><!-- 
-                        --><div class="col text-center" id="col02">
-                        </div> 
-                    </div>
-                    <div class="row text-center">
-                        <div class="col text-center" id="col10">
-                        </div><!-- 
-                        --><div class="col text-center" id="col11">
-                        </div><!-- 
-                        --><div class="col text-center" id="col12">
-                        </div> 
-                    </div>
-                    <div class="row text-center">
-                        <div class="col text-center" id="col20">
-                        </div><!-- 
-                        --><div class="col text-center" id="col21">
-                        </div><!-- 
-                        --><div class="col text-center" id="col22">
-                        </div> 
-                    </div>
-                </section>
-                <section class="text-center">
-                    <a href="" class="controls" id="play-again">Play Again</a>  
-                </section>
-                <section class="text-center">
-                    <h2 id="status"></h2>
-                </section>           
-            </div>
-            <footer>
-                <small><a href="https://github.com/kartikanand/tictactoe">Hosted with &hearts; on Github</a></small>                
-            </footer>
-        </div>
-        <script type="text/javascript" src="static/main.min.js"></script>
-    </body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src data:; base-uri 'none'; form-action 'none'">
+    <meta name="description" content="Tic Tac Toe against an unbeatable minimax opponent.">
+    <title>Tic Tac Toe</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M8 8l16 16M24 8L8 24' stroke='%23e0533d' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="main.js"></script>
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <h1>Tic Tac Toe</h1>
+        <p class="subtitle">Minimax algorithm &middot; you are X</p>
+      </header>
+
+      <div class="board" id="board" role="group" aria-label="Game board">
+          <button class="cell" type="button" data-index="0"></button>
+          <button class="cell" type="button" data-index="1"></button>
+          <button class="cell" type="button" data-index="2"></button>
+          <button class="cell" type="button" data-index="3"></button>
+          <button class="cell" type="button" data-index="4"></button>
+          <button class="cell" type="button" data-index="5"></button>
+          <button class="cell" type="button" data-index="6"></button>
+          <button class="cell" type="button" data-index="7"></button>
+          <button class="cell" type="button" data-index="8"></button>
+      </div>
+
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+
+      <button class="reset" id="reset" type="button">Play again</button>
+    </main>
+
+    <footer>
+      <a href="https://github.com/kartikanand/tictactoe">View source on GitHub</a>
+    </footer>
+  </body>
 </html>
