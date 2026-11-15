@@ -3,7 +3,7 @@
 Play Tic Tac Toe against an unbeatable computer opponent that uses the
 [minimax algorithm](https://en.wikipedia.org/wiki/Minimax) with alpha-beta pruning.
 
-**Demo:** https://www.kartikanand.com/tictactoe
+**Demo:** https://kartikanand.github.io/tictactoe/
 
 Relevant XKCD: [Tic-Tac-Toe](https://xkcd.com/832/)
 
